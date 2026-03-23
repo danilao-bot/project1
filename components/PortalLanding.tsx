@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -86,7 +86,7 @@ export default function PortalLanding({ facultyName }: Props) {
             });
 
             if (!assistantsRes.ok) {
-              return { supervisor, assistant: null };
+              return { supervisor, assistants: [] };
             }
 
             const assistantsPayload = await assistantsRes.json();
