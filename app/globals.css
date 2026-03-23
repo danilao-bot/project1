@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+:root {
+  color: #0f172a;
+  background-color: #f8fafc;
+}
+
+html {
+  scroll-behavior: smooth;
+  view-transition-name: root;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.portal-hero-gradient {
+  background:
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 55%),
+    radial-gradient(circle at 30% 20%, rgba(56, 189, 248, 0.15), transparent 45%),
+    linear-gradient(120deg, #f8fafc 0%, #eff6ff 100%);
+}
+
+.portal-grid-pattern {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.18) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.portal-hero-image {
+  background-image:
+    linear-gradient(120deg, rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.15)),
+    url('/image.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.portal-hero-overlay {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 50%),
+    radial-gradient(circle at 80% 0%, rgba(59, 130, 246, 0.25), transparent 55%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75));
+  opacity: 0.85;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+.animate-delay-100 {
+  animation-delay: 0.1s;
+}
+
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 240ms;
+    animation-timing-function: ease;
+  }
+}
