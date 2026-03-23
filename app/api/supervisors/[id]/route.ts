@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const supabase = await createClient();
   
@@ -13,7 +13,7 @@ export async function PUT(
   }
 
   const { name, specialization } = await request.json();
-  const id = params.id;
+  const { id } = await params;
 
   const { data, error } = await supabase
     .from('supervisors')
@@ -31,7 +31,7 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const supabase = await createClient();
   
@@ -40,7 +40,7 @@ export async function DELETE(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const id = params.id;
+  const { id } = await params;
 
   // First, explicitly delete all submissions linked to this supervisor
   await supabase.from('submissions').delete().eq('supervisor_id', id);

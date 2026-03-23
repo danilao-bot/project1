@@ -4,11 +4,11 @@ import { NextResponse } from 'next/server';
 // 🟢 Get an assistant by ID (with optional supervisor fields)
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient();
-    const { id } = params;
+    const { id } = await params;
 
     // Nested select for supervisor if you want the related record too
     const { data, error } = await supabase
@@ -32,7 +32,7 @@ export async function GET(
 // 🔄 Update an assistant by ID
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -44,7 +44,7 @@ export async function PUT(
 
     const body = await request.json();
     const { name, supervisor_id } = body;
-    const id = params.id;
+    const { id } = await params;
 
     const { data, error } = await supabase
       .from('assistants')
@@ -67,7 +67,7 @@ export async function PUT(
 // ❌ Delete an assistant by ID (and related submissions)
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -77,7 +77,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const id = params.id;
+    const { id } = await params;
 
     // First delete linked student submissions
     const { error: subError } = await supabase
