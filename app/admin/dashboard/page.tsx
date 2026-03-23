@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import AdminTable from '@/components/AdminTable';
 import PortalStatusToggle from '@/components/PortalStatusToggle';
 import ExportExcelButton from '@/components/ExportExcelButton';
