@@ -39,7 +39,7 @@ export default function SubmissionForm() {
     // Fetch assistants when supervisor changes
     if (selectedSupervisor) {
       // Only reset assistant if it wasn't pre-filled by the URL
-      if (!isAssistantFixed || (isAssistantFixed && selectedAssistant !== queryAssistantId)) {
+      if (!isAssistantFixed) {
         setSelectedAssistant('');
       }
       fetch(`/api/assistants?supervisor_id=${selectedSupervisor}`)
@@ -49,7 +49,7 @@ export default function SubmissionForm() {
     } else {
       setAssistants([]);
     }
-  }, [selectedSupervisor, isAssistantFixed, queryAssistantId, selectedAssistant]);
+  }, [selectedSupervisor, isAssistantFixed, queryAssistantId]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
